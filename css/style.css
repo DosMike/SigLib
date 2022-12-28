@@ -1,0 +1,587 @@
+/*=== Basic elements ===*/
+
+*:not(input, button, select) {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+body {
+    background: #f0f0f0;
+    font-family: Arial;
+}
+
+a {
+    cursor: pointer;
+}
+
+a,
+a:link,
+a:visited {
+    color: #0064ff;
+}
+
+a:hover,
+a:active {
+    color: #0072a0;
+}
+
+input[type=text] {
+    border: thin solid gray;
+    background: #ffffff;
+    border-radius: .3rem;
+    line-height: 1.5rem;
+    height: 1.2rem;
+}
+
+/*=== Design ===*/
+
+
+button,
+input[type=submit] {
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    padding: 5px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    vertical-align: middle;
+    border: 1px solid;
+    border-radius: 6px;
+    color: #24292e;
+    background-color: #fafbfc;
+    border-color: #1b1f2326;
+    box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+    transition: 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    transition-property: color, background-color, border-color;
+}
+
+button.in:not([disabled]),
+input[type=submit].in:not([disabled]) {
+    background-color: #e0e1e2;
+}
+
+button:not([disabled]):hover,
+input[type=submit]:not([disabled]):hover {
+    background-color: #f3f4f6;
+    border-color: #1b1f2326;
+    transition-duration: 0.1s;
+}
+
+button[disabled],
+input[type=submit][disbaled] {
+    color: #484848;
+    background-color: #d4d5d6;
+    box-shadow: none;
+}
+
+button.critical {
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    padding: .33em 1em;
+    font-weight: 500;
+    line-height: 1.33em;
+    vertical-align: middle;
+    border: 1px solid;
+    border-radius: .4em;
+    color: #ffffff;
+    background-color: #c81616;
+    border-color: #1b1f2326;
+    box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+    transition: 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    transition-property: color, background-color, border-color;
+}
+
+button.critical:not([disabled]):hover {
+    background-color: #e01616;
+    border-color: #1b1f2326;
+    transition-duration: 0.1s;
+}
+
+/*=== Content ===*/
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #3264ff;
+    background: linear-gradient(180deg, #3264ffff 0, #4070ffff 50%, #3248ff 50%, #3264ff 100%);
+    box-shadow: 0px 0px 5px 0px #00000096;
+    height: 3.3rem;
+    line-height: 3rem;
+    font-size: 1.5em;
+    color: #ffc800;
+}
+
+header a:link,
+header a:visited,
+header a:hover,
+header a:active {
+    text-decoration: none;
+    color: #ffc800;
+}
+
+header h1 {
+    font-size: 2rem;
+}
+
+header span {
+    float: right;
+    margin-right: 1rem;
+}
+
+header span a {
+    display: flex;
+    height: 3.3rem;
+}
+
+header span a img {
+    height: 80%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+header .avatar {
+    height: 3rem;
+    display: inline;
+    border: 2px bisque inset;
+    border-radius: 50%;
+    margin-left: .5rem;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background: #ffffffc8;
+    padding: .2em .5em;
+}
+
+main {
+    max-width: 1024px;
+    width: 100%;
+    margin: auto;
+    margin-top: 3.3rem;
+    margin-bottom: 10vh;
+    background: #ffffff;
+    box-shadow: 0px 0px 5px 0px #c8c8c8;
+    min-height: 80vh;
+    padding: .5em;
+}
+
+h1 {
+
+    margin: .1em .25em;
+    display: inline;
+}
+
+.upload {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #00000064;
+    transition: opacity .1s ease;
+    opacity: 0;
+    display: none;
+}
+
+.upload .progressbar {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    height: 2rem;
+    border-radius: .5rem;
+    background: gray;
+    transition: opacity .1s ease;
+    overflow: hidden;
+    box-shadow: .1rem .1rem .25rem black inset, .1rem .1rem 1rem #c8c8c8;
+    opacity: 0;
+}
+
+.upload .progressbar .progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    background: #32ff00;
+    background: repeating-linear-gradient(-30deg, #327216 0rem, #327216 1.9rem, #48c832 2rem, #48c832 3.9rem, #327216 4rem);
+    box-shadow: .1rem .1rem .2rem #0006 inset, 0 0 .5em #0006;
+    background-position-y: 0rem;
+    background-size: auto 4.6rem;
+    animation: progressbarRoll 2s linear infinite;
+    transition: width .2s linear;
+}
+
+@keyframes progressbarRoll {
+    from {
+        background-position-y: 0rem;
+    }
+
+    to {
+        background-position-y: 4.6rem;
+    }
+}
+
+/*=== Text formatting ===*/
+
+.indexbox {
+    float: right;
+    margin: .5rem;
+    padding: .7rem;
+    background: #d0d0d0;
+    border: thin solid black;
+}
+
+.comment {
+    padding-right: 1rem;
+    display: block;
+}
+
+.comment h1,
+.comment h2,
+.comment h3,
+.comment h4 {
+    margin: .25em .15rem;
+    display: inline-block;
+}
+
+.comment p,
+.comment ul {
+    padding-left: 1rem;
+    padding-bottom: .7rem;
+}
+
+.comment table {
+    border-collapse: collapse;
+    margin: .3em 1.5em 1em 1.5em;
+}
+
+.comment table td,
+.comment table th {
+    border: thin solid gray;
+    padding: .2em .5em;
+    background: #00000016;
+}
+
+.comment table th {
+    font-weight: bold;
+}
+
+.comment li {
+    margin-left: 1rem;
+}
+
+/*=== Listings ===*/
+
+.withsidebar {
+    display: flex;
+    flex-direction: row;
+}
+
+.withsidebar .sidebar {
+    margin-right: 1rem;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.withsidebar .sidebar ul {
+    list-style: none;
+    font-size: 0.8rem;
+}
+
+.withsidebar>* {
+    flex-grow: 1;
+}
+
+.symgrid,
+.valgrid {
+    display: grid;
+    height: min-content;
+}
+
+.symgrid {
+    grid-template-columns: auto max-content max-content max-content max-content;
+}
+
+.valgrid {
+    grid-template-columns: auto max-content max-content max-content max-content max-content max-content;
+}
+
+.symgrid .head,
+.valgrid .head {
+    background: #c8e0ff;
+    background: linear-gradient(180deg, #c8e0ff 0, #e0f0ff 50%, #a0d0f0 50%, #c8e0ff 100%);
+    border: thin solid #d0d0ff;
+    padding: .2rem .5rem;
+}
+
+.symgrid>span.head:first-child,
+.valgrid>span.head:first-child {
+    border-radius: .3rem 0 0 0;
+}
+
+.symgrid>span.head:nth-child(5),
+.valgrid>span.head:nth-child(6) {
+    border-radius: 0 .3rem 0 0;
+}
+
+.symgrid .entry,
+.valgrid .entry {
+    display: grid;
+    grid-template-columns: subgrid;
+    margin: 0;
+    grid-template-rows: min-content;
+}
+
+.symgrid .entry {
+    grid-column: 1/6;
+}
+
+.valgrid .entry {
+    grid-column: 1/8;
+}
+
+.symgrid .entry:link,
+.symgrid .entry:visited,
+.symgrid .entry:hover,
+.symgrid .entry:active,
+.valgrid .entry:link,
+.valgrid .entry:visited,
+.valgrid .entry:hover,
+.valgrid .entry:active {
+    color: #000000;
+    text-decoration: none;
+}
+
+.symgrid .entry:nth-child(2n),
+.valgrid .entry:nth-child(2n) {
+    background: #c8c8f064;
+}
+
+.symgrid .entry:nth-child(2n+1),
+.valgrid .entry:nth-child(2n+1) {
+    background: #c8c8f032;
+}
+
+.symgrid .entry>*,
+.valgrid .entry>* {
+    padding: .2rem .5rem;
+}
+
+.symgrid .entry .symdetails,
+.valgrid .entry .valdetails {
+    height: 0;
+    overflow: hidden;
+    margin: 0 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    position: relative;
+    transition: height .2s;
+}
+
+.symgrid .entry .symdetails {
+    grid-column: 1/6;
+}
+
+.valgrid .entry .valdetails {
+    grid-column: 1/8;
+}
+
+.symgrid .entry.open .symdetails,
+.valgrid .entry.open .valdetails {
+    height: 100%;
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+}
+
+.symgrid .entry .symdetails::before,
+.valgrid .entry .valdetails::before {
+    box-shadow: -.5rem 0px 0px 1px #c8c8c8, -.5px 1rem 0px 1rem white, -.5px 0px 1rem 1px black;
+    width: 100%;
+    height: 0px;
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0px;
+}
+
+/*=== User Page ===*/
+
+.profileBanner {
+    display: flex;
+    align-items: center;
+}
+
+.profileBanner>span {
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+.profileBanner .userHead {
+    display: inline-flex;
+    vertical-align: middle;
+    line-height: 4rem;
+    background: #d8e0ff;
+    box-shadow: 0px 1px 2px #1248 inset,1px 1px 4px #1236;
+    border-radius: .2rem;
+    position: relative;
+    padding: .5rem;
+}
+
+.profileBanner .userHead img {
+    height: 4rem;
+    width: 4rem;
+    border: .125rem gold inset;
+    border-radius: 100%;
+    margin-left: .5rem;
+}
+
+#bnApiKeyDestroy {
+    margin-left: 1rem;
+}
+
+.profile table {
+    max-height: 32em;
+    overflow-y: auto;
+    display: inline-block;
+    width: 100%;
+}
+
+/*=== Symbol ===*/
+
+button#bnDupe,
+button#bnRateUp,
+button#bnRateDown {
+    margin-left: .2rem;
+    margin-right: .2rem;
+    padding-left: .4rem;
+    padding-right: .6rem;
+}
+
+button#bnRateUp {
+    margin-right: 0;
+    border-radius: .33rem 0 0 .33rem;
+    border-right: none;
+}
+
+button#bnRateDown {
+    margin-left: 0;
+    border-radius: 0 .33rem .33rem 0;
+}
+
+.dupeslist {
+    font-size: .8em;
+}
+.dupeslist a.inlineuser {
+    margin-right: .5em;
+}
+
+a.inlineuser {
+    text-decoration: none;
+}
+
+a.inlineuser img {
+    height: 1.1em;
+    width: 1.1em;
+    border-radius: 100%;
+    border: thin solid goldenrod;
+}
+
+a.inlineuser.deleted {
+    text-decoration: line-through;
+}
+
+a.inlineuser.deleted img {
+    background: #000;
+}
+
+div.commentgroup {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-height: 16rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    background: linear-gradient(0deg, #ccc7 0, #fff0 1rem), linear-gradient(180deg, #ccc3 0, #fff0 1rem);
+}
+
+div.commentgroup>.comment {
+    margin-left: 1rem;
+}
+
+div.commentgroup>.comment>span {
+    display: inline-block;
+    width: 100%;
+    margin-top: .5rem;
+}
+
+div.commentgroup>.comment>span button {
+    font-size: .8em;
+    padding: .2em .5em;
+    float: right;
+}
+
+div.commentgroup>.comment>span:nth-of-type(1) {
+    font-weight: bold;
+}
+
+div.commentgroup>.comment>span:nth-of-type(2) {
+    border-bottom: thin solid gray;
+}
+
+form.comment {
+    display: flex;
+    flex-direction: row;
+    padding: 0 1rem .5rem 1rem;
+}
+
+form.comment textarea {
+    flex-grow: 1;
+    height: 2rem;
+    min-height: 2rem;
+    resize: vertical;
+    margin-right: 1rem;
+    padding: .3rem;
+    border: thin solid #c8c8c8;
+    border-radius: .2rem;
+    box-shadow: 1px 1px 2px #e0e0e0 inset;
+    font-size: 1rem;
+    font-family: Arial, Sans-Serif;
+}
+
+form.comment input[type=submit] {
+    height: 2rem;
+    align-self: flex-end;
+}
+
+/*=== Upload page ===*/
+
+#uploadForm label.gamever {
+    display: flex;
+    width: 100%;
+    max-width: 25rem;
+}
+
+#uploadForm label.gamever input {
+    margin-left: auto;
+    width: 8rem
+}
+
+#uploadForm label.gamever:nth-child(2n+1) {
+    background: #00166408;
+}
+
+#uploadForm label.gamever:nth-child(2n) {
+    background: #00006416;
+}
