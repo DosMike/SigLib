@@ -22,6 +22,7 @@ function htmlRender($data) {?>
                 $namespacecounts[$ns]=($namespacecounts[$ns]??0)+1;
             }
         }
+        ksort($namespacecounts, SORT_STRING);
         foreach ($namespacecounts as $namespace=>$count) {
             ?><li><a href="?q=<?=urlencode($namespace.'::')?>"><?=htmlspecialchars(empty($namespace)?'<GLOBAL>':$namespace)?> (<?=$count?>)</a><?
         }

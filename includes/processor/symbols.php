@@ -92,13 +92,14 @@ function process() {
     }
     if (count($order)==0) 
         $order[] = "s.Created_At DESC";
+    $order[] = "s.Symbol ASC";
 
     // query database
     global $sqltp;
     $query = "SELECT distinct s.`ID`, s.`Symbol`, s.`Library`, s.`Created_At` AS First_Seen, s.`Rating`, s.`Dupes` FROM ${sqltp}symbols AS s
     LEFT JOIN `${sqltp}values` AS v ON s.`ID` = v.`Symbol`";
     if (count($filters)!=0) $query.=" WHERE ".implode(' AND ',$filters);
-    if (count($order)!=0) $query.=" ORDER BY ".implode(', ',$order);
+    $query.=" ORDER BY ".implode(', ',$order);
     $query.=" LIMIT 1000";
     
     $result=[];
