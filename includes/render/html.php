@@ -33,7 +33,7 @@ function output($type, $data) {
 	
     ?></main>
     <header><a href="?"><h1>SigLib</h1></a><?=$crumb?><span><?= loginButton() ?></span></header>
-    <footer><a href="https://github.com/DosMike">SigLib on GitHub</a> ♥ 22w52a - BETA</footer>
+    <footer><a href="https://github.com/DosMike/SigLib">SigLib on GitHub</a> ♥ 22w52a - BETA</footer>
     <div class="upload">
         <div class="progressbar"><div class="progress"></div></div>
     </div>
