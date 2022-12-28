@@ -54,7 +54,8 @@ function pushSymbol($symbol, $library, $user) {
     // asd::asd()::asd - function members
     // asd(asd) - value of global type, e.g. sizeof(something)
     // asd(asd::asd) - value of scoped type
-    if (!preg_match("/^\\w+(?:(?:::\\w+[(][)])?(?:::\\w+)?|\\((?:\\w+(?:::\\w+)?)?\\))$/",$symbol)) {
+    // function brackets can contain any mix of symbols, spaces, template and grouping characters, in case someone writes a full sig
+    if (!preg_match("/^\\w+(?:(?:::\\w+[(][\\w :,<>()*&]*[)])?(?:::\\w+)?|\\((?:\\w+(?:::\\w+)?)?\\))$/",$symbol)) {
         // echo "Failed Syntax Check on $symbol";
         return false;
     }
