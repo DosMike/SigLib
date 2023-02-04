@@ -7,6 +7,9 @@ function htmlRender($data) {?><content class="comment">
         <li><a href="#api">API</a>
     </ul></div>
     <h1 id="how">How it works</h1>
+    <p>The intended purpose of this plugin is primarily for plugin devs to see, what signatures have already been found, and for server owners to be able to update gamedata files for
+    maybe old or unmaintained plugins. It is less so to have a magic or automatic way to get signatures to be always up-to-date. As to how it is used is up to the user base. If you
+    have suggestions or feeback, please create an Issue on GitHub, linked in the page footer.</p>
     <p>The data on this website is user provided. In order to upload data or post comments you have to sign in through steam. You can then drag-drop gamedata files on the browser
     to add them to the database. Signed in users can also post comments, please be civil as I don't want to have to moderate this and will rather turn off that feature. Move off-topic
     discussions to DMs.</p>

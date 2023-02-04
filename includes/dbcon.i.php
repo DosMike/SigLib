@@ -124,7 +124,7 @@ function sqlGetRow() {
  * skip it by passing NULL as argument. Example use:
  * sqlSelect( 'users', '`Name`, `ID`', NULL, '`ID` DESC', 1 );
  * if ( ( $row = sqlGetRow() ) != NULL )
- *   echo "${row['Name']} is the newest Member with ID ${row['ID']}" ;
+ *   echo "{$row['Name']} is the newest Member with ID {$row['ID']}" ;
  *
  * For more information on the SELECT syntax see
  * https://dev.mysql.com/doc/refman/5.7/en/select.html

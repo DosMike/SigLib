@@ -18,7 +18,7 @@ function ratelimit_auto($authHeader='') {
 
 function ratelimit_getkey($authHeader='') {
     global $sqltp;
-    sqlQuery("DELETE FROM `${sqltp}rates` WHERE `NextReset` <= NOW()");
+    sqlQuery("DELETE FROM `{$sqltp}rates` WHERE `NextReset` <= NOW()");
     $key = '';
     $type = '';
     if (!empty($authHeader)) {

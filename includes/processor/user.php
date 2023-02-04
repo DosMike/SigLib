@@ -37,9 +37,9 @@ function process() {
     }
 
     global $sqltp;
-    sqlQuery("SELECT s.ID, s.Symbol, s.Library, s.Created_At AS First_Seen, us.Created_At AS Duped_At FROM ${sqltp}user_symbols AS us
-    LEFT JOIN ${sqltp}symbols as s ON us.Symbol = s.ID
-    WHERE us.User = ${dbid}
+    sqlQuery("SELECT s.ID, s.Symbol, s.Library, s.Created_At AS First_Seen, us.Created_At AS Duped_At FROM {$sqltp}user_symbols AS us
+    LEFT JOIN {$sqltp}symbols as s ON us.Symbol = s.ID
+    WHERE us.User = {$dbid}
     ORDER BY Duped_At DESC");
     while (($row=sqlGetRow())!=null) {
         $result['symbols'][]=[
@@ -52,10 +52,10 @@ function process() {
     }
     sqlFreeResult();
 
-    sqlQuery("SELECT s.ID as SymbolID, s.Symbol, s.Library, v.ID as ValueID, v.Game, v.Version, v.Platform, v.Value, v.Created_At AS First_Seen, uv.Created_At AS Duped_At FROM ${sqltp}user_values AS uv
-    LEFT JOIN `${sqltp}values` AS v ON uv.Value = v.ID
-    LEFT JOIN ${sqltp}symbols AS s ON s.ID = v.Symbol
-    WHERE uv.User = ${dbid}
+    sqlQuery("SELECT s.ID as SymbolID, s.Symbol, s.Library, v.ID as ValueID, v.Game, v.Version, v.Platform, v.Value, v.Created_At AS First_Seen, uv.Created_At AS Duped_At FROM {$sqltp}user_values AS uv
+    LEFT JOIN `{$sqltp}values` AS v ON uv.Value = v.ID
+    LEFT JOIN {$sqltp}symbols AS s ON s.ID = v.Symbol
+    WHERE uv.User = {$dbid}
     ORDER BY Duped_At DESC");
     $platNames=['Windows','Linux','Mac'];
     while (($row=sqlGetRow())!=null) {
@@ -76,9 +76,9 @@ function process() {
     }
     sqlFreeResult();
 
-    sqlQuery("SELECT s.ID as SymbolID, s.Symbol, s.Library, s.Created_At AS First_Seen, sc.ID as CommentID, sc.Created_At AS Posted_At, sc.Message FROM ${sqltp}symbol_comments as sc
-    LEFT JOIN ${sqltp}symbols AS s ON s.ID = sc.Symbol
-    WHERE sc.Created_By = ${dbid}
+    sqlQuery("SELECT s.ID as SymbolID, s.Symbol, s.Library, s.Created_At AS First_Seen, sc.ID as CommentID, sc.Created_At AS Posted_At, sc.Message FROM {$sqltp}symbol_comments as sc
+    LEFT JOIN {$sqltp}symbols AS s ON s.ID = sc.Symbol
+    WHERE sc.Created_By = {$dbid}
     ORDER BY sc.Created_At DESC");
     while (($row=sqlGetRow())!=null) {
         $result['symbol_comments'][]=[
@@ -94,10 +94,10 @@ function process() {
     }
     sqlFreeResult();
 
-    sqlQuery("SELECT s.ID as SymbolID, s.Symbol, s.Library, v.ID as ValueID, v.Game, v.Version, v.Platform, v.Value, v.Created_At AS First_Seen, vc.ID as CommentID, vc.Created_At AS Posted_At, vc.Message FROM ${sqltp}value_comments as vc
-    LEFT JOIN `${sqltp}values` AS v ON vc.Value = v.ID
-    LEFT JOIN ${sqltp}symbols AS s ON s.ID = v.Symbol
-    WHERE vc.Created_By = ${dbid}
+    sqlQuery("SELECT s.ID as SymbolID, s.Symbol, s.Library, v.ID as ValueID, v.Game, v.Version, v.Platform, v.Value, v.Created_At AS First_Seen, vc.ID as CommentID, vc.Created_At AS Posted_At, vc.Message FROM {$sqltp}value_comments as vc
+    LEFT JOIN `{$sqltp}values` AS v ON vc.Value = v.ID
+    LEFT JOIN {$sqltp}symbols AS s ON s.ID = v.Symbol
+    WHERE vc.Created_By = {$dbid}
     ORDER BY vc.Created_At DESC");
     while (($row=sqlGetRow())!=null) {
         $result['value_comments'][]=[

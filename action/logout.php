@@ -7,4 +7,4 @@ session_unset();
 session_destroy();
 $auth->LogOut();
 
-header("Location: /${webroot}");
+header("Location: /{$webroot}");
