@@ -30,8 +30,8 @@ function process() {
     sqlFreeResult();
     $symID = $symbol['id'];
 
-    sqlQuery("SELECT u.`ID`, u.`SteamID`, u.`DisplayName`, u.`AvatarURL`, u.`Anonymity` FROM ${sqltp}users AS u
-    LEFT JOIN `${sqltp}user_symbols` as us ON u.`ID` = us.`User`
+    sqlQuery("SELECT u.`ID`, u.`SteamID`, u.`DisplayName`, u.`AvatarURL`, u.`Anonymity` FROM {$sqltp}users AS u
+    LEFT JOIN `{$sqltp}user_symbols` as us ON u.`ID` = us.`User`
     WHERE us.`Symbol` = $symID
     ORDER BY u.`DisplayName` ASC");
     $symbol['dupers']=[];
@@ -45,8 +45,8 @@ function process() {
         ];
     }
 
-    sqlQuery("SELECT sc.`ID`, sc.`Message`, sc.`Created_At`, u.`ID` as UserID, u.`DisplayName`, u.`SteamID`, u.`AvatarURL`, u.`Anonymity` FROM ${sqltp}symbol_comments AS sc
-    LEFT JOIN `${sqltp}users` AS u ON u.`ID` = sc.`Created_By`
+    sqlQuery("SELECT sc.`ID`, sc.`Message`, sc.`Created_At`, u.`ID` as UserID, u.`DisplayName`, u.`SteamID`, u.`AvatarURL`, u.`Anonymity` FROM {$sqltp}symbol_comments AS sc
+    LEFT JOIN `{$sqltp}users` AS u ON u.`ID` = sc.`Created_By`
     WHERE sc.`Symbol` = $symID
     ORDER BY sc.`Created_At` DESC");
     $symbol['comments']=[];
@@ -65,7 +65,7 @@ function process() {
         ];
     }
     if (isset($Authorization) && !empty($Authorization['DBID'])) {
-        sqlQuery("SELECT `Rating` FROM ${sqltp}symbol_ratings
+        sqlQuery("SELECT `Rating` FROM {$sqltp}symbol_ratings
         WHERE `Symbol` = $symID AND `Created_By` = ".$Authorization['DBID']);
         $symbol['user_rating']=0;
         if (($row = sqlGetRow()) !== null) {
@@ -75,7 +75,7 @@ function process() {
         $symbol['user_rating']='-';
     }
 
-    sqlSelect('values', ['ID', 'Game', 'Version', 'Platform', 'Value', 'Rating', 'Dupes', 'Created_At'], ['Symbol' => $symID]);
+    sqlSelect('values', ['ID', 'Game', 'Version', 'Platform', 'Value', 'Rating', 'Dupes', 'Created_At'], ['Symbol' => $symID], '`Version` DESC, `Created_At` DESC');
     $symbol['values']=[];
     while (($row = sqlGetRow()) !== null) {
         $symbol['values'][]=[
@@ -94,8 +94,8 @@ function process() {
     foreach($symbol['values'] as &$value) {
         $valID = $value['id'];
 
-        sqlQuery("SELECT u.`ID`, u.`SteamID`, u.`DisplayName`, u.`AvatarURL`, u.`Anonymity` FROM ${sqltp}users AS u
-        LEFT JOIN `${sqltp}user_values` as uv ON u.`ID` = uv.`User`
+        sqlQuery("SELECT u.`ID`, u.`SteamID`, u.`DisplayName`, u.`AvatarURL`, u.`Anonymity` FROM {$sqltp}users AS u
+        LEFT JOIN `{$sqltp}user_values` as uv ON u.`ID` = uv.`User`
         WHERE uv.`Value` = $valID
         ORDER BY u.`DisplayName` ASC");
         $value['dupers']=[];
@@ -109,8 +109,8 @@ function process() {
             ];
         }
 
-        sqlQuery("SELECT vc.`ID`, vc.`Message`, vc.`Created_At`, u.`ID`as UserID, u.`DisplayName`, u.`SteamID`, u.`AvatarURL`, u.`Anonymity` FROM ${sqltp}value_comments AS vc
-        LEFT JOIN `${sqltp}users` AS u ON u.`ID` = vc.`Created_By`
+        sqlQuery("SELECT vc.`ID`, vc.`Message`, vc.`Created_At`, u.`ID`as UserID, u.`DisplayName`, u.`SteamID`, u.`AvatarURL`, u.`Anonymity` FROM {$sqltp}value_comments AS vc
+        LEFT JOIN `{$sqltp}users` AS u ON u.`ID` = vc.`Created_By`
         WHERE vc.`Value` = $valID
         ORDER BY vc.`Created_At` DESC");
         $value['comments']=[];
@@ -130,7 +130,7 @@ function process() {
         }
 
         if (isset($Authorization) && !empty($Authorization['DBID'])) {
-            sqlQuery("SELECT `Rating` FROM ${sqltp}value_ratings
+            sqlQuery("SELECT `Rating` FROM {$sqltp}value_ratings
             WHERE `Value` = $valID AND `Created_By` = ".$Authorization['DBID']);
             $value['user_rating']=0;
             if (($row=sqlGetRow())!==null) {

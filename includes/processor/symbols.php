@@ -96,8 +96,8 @@ function process() {
 
     // query database
     global $sqltp;
-    $query = "SELECT distinct s.`ID`, s.`Symbol`, s.`Library`, s.`Created_At` AS First_Seen, s.`Rating`, s.`Dupes` FROM ${sqltp}symbols AS s
-    LEFT JOIN `${sqltp}values` AS v ON s.`ID` = v.`Symbol`";
+    $query = "SELECT distinct s.`ID`, s.`Symbol`, s.`Library`, s.`Created_At` AS First_Seen, s.`Rating`, s.`Dupes` FROM {$sqltp}symbols AS s
+    LEFT JOIN `{$sqltp}values` AS v ON s.`ID` = v.`Symbol`";
     if (count($filters)!=0) $query.=" WHERE ".implode(' AND ',$filters);
     $query.=" ORDER BY ".implode(', ',$order);
     $query.=" LIMIT 1000";

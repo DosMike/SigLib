@@ -40,7 +40,8 @@ function htmlRender($data) {
     <p><?
     if (isset($Authorization['Powerlevel']) && $Authorization['Powerlevel'] > 0) {
         $duped = didIDupe($data['dupers']);
-        ?><button id="bnDupe"<? if ($duped) echo ' class="in"'; ?> data-symbol="<?=$data['id']?>" title="<?=$duped?'De-duplicate':'Duplicate'?> Symbol">&#10697; Dupes | <?= $data['dupes']; ?></button><?
+        //disable dupe button by default, so you have to use gamedata. duping by button is still useful/doable to undo de-duping, until you refresh the page.
+        ?><button id="bnDupe"<?= $duped ? ' class="in"' : ' disabled' ?> data-symbol="<?=$data['id']?>" title="<?=$duped?'De-duplicate':'Duplicate'?> Symbol">&#10697; Dupes | <?= $data['dupes']; ?></button><?
         ?><button id="bnRateUp"<? if ($data['user_rating']>0) echo ' class="in"'; ?> data-symbol="<?=$data['id']?>" title="Rate Up">&#x1F44D; Score | <?= $data['score']; ?></button><?
         ?><button id="bnRateDown"<? if ($data['user_rating']<0) echo ' class="in"'; ?> data-symbol="<?=$data['id']?>" title="Rate Down">&#x1F44E;</button><?
     } else {

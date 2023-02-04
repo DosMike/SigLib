@@ -36,9 +36,9 @@ if (isset($_POST['dupes'])) {
     
     $entry = ['User' => $Authorization['DBID'], ucwords($table) => $id];
     if ($_POST['dupes'] == 'make') {
-        sqlInsert("user_${table}s", $entry, true);
+        sqlInsert("user_{$table}s", $entry, true);
     } else if ($_POST['dupes'] == 'destroy') {
-        sqlDelete("user_${table}s", $entry);
+        sqlDelete("user_{$table}s", $entry);
     } else {
         endWith(['Error' => 'Invalid action'], 400);
     }
@@ -50,15 +50,15 @@ if (isset($_POST['dupes'])) {
     if ($value < -1 || $value > 1) endWith(['Error' => 'Invalid action'], 400);
 
     if ($value == 0) {
-        sqlDelete("${table}_ratings", [ 'Created_By' => $Authorization['DBID'], ucwords($table) => $id ]);
+        sqlDelete("{$table}_ratings", [ 'Created_By' => $Authorization['DBID'], ucwords($table) => $id ]);
     } else {
-        sqlUpsert("${table}_ratings", [ 'Created_By' => $Authorization['DBID'], ucwords($table) => $id, 'Rating' => $value ], ['Rating']);
+        sqlUpsert("{$table}_ratings", [ 'Created_By' => $Authorization['DBID'], ucwords($table) => $id, 'Rating' => $value ], ['Rating']);
     }
 
 }
 
 //send back if the symbol/value still exists
-sqlSelect("${table}s", ['ID'], ['ID'=>$id], null, 1);
+sqlSelect("{$table}s", ['ID'], ['ID'=>$id], null, 1);
 $recode = 200;
 if (sqlRows()==0) {
     $result['Deleted']='Deleted';

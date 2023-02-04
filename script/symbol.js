@@ -59,6 +59,7 @@ const processDupe = (button) => {
                 while (!content.classList.contains('entry')) content = content.parentElement;
                 content.querySelector('[name="dupes"]').innerText = dupes;
             }
+            button.title = (make?'De-d':'D')+'uplicate Symbol';
 
             let dupers = document.querySelector('[data-target="'+type[0]+id+'"].dupeslist');
             if (make) {

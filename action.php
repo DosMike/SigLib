@@ -78,5 +78,5 @@ if ($_GET['do']=='import') {
 } elseif ($_GET['do']=='clearprofile') {
 	include("action/clearprofile.php");
 } else {
-    header("location: /${webroot}", true, 302);
+    header("location: /{$webroot}", true, 302);
 }

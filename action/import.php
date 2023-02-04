@@ -67,7 +67,7 @@ function pushSymbol($symbol, $library, $user) {
     if ($library != null) $lib = "'".sqlEscape($library)."'";
     
     //insert the symbol or get the current id
-    $result = sqlQuery("INSERT INTO ${sqltp}symbols (`Symbol`,`Library`) VALUES ($sym, $lib) ON DUPLICATE KEY UPDATE `ID`=LAST_INSERT_ID(`ID`);");
+    $result = sqlQuery("INSERT INTO {$sqltp}symbols (`Symbol`,`Library`) VALUES ($sym, $lib) ON DUPLICATE KEY UPDATE `ID`=LAST_INSERT_ID(`ID`);");
     if ($result === false) {
         // echo "Could not insert $symbol";
         return false; //error
@@ -79,7 +79,7 @@ function pushSymbol($symbol, $library, $user) {
     }
 
     //register the ownership
-    sqlQuery("INSERT IGNORE INTO ${sqltp}user_symbols (`User`,`Symbol`) VALUES ($user, $symID);");
+    sqlQuery("INSERT IGNORE INTO {$sqltp}user_symbols (`User`,`Symbol`) VALUES ($user, $symID);");
     //if the insert worked we have a trigger that counts up the duplicates in the symbols table
 
     return $symID; //give back the symbol ID
@@ -113,7 +113,7 @@ function pushValue($symID, $game, $version, $platform, $value, $user) {
     $value = "'".sqlEscape($value)."'";
 
     //insert new value for the symbol or get the current id
-    $result = sqlQuery("INSERT INTO `${sqltp}values` (`Symbol`,`Game`,`Version`,`Platform`,`Value`) VALUES ($symID, $game, $version, $plat, $value) ON DUPLICATE KEY UPDATE `ID`=LAST_INSERT_ID(`ID`);");
+    $result = sqlQuery("INSERT INTO `{$sqltp}values` (`Symbol`,`Game`,`Version`,`Platform`,`Value`) VALUES ($symID, $game, $version, $plat, $value) ON DUPLICATE KEY UPDATE `ID`=LAST_INSERT_ID(`ID`);");
     if ($result === false) {
         // echo "Could not insert $symID : $value";
         return false; //error
@@ -125,7 +125,7 @@ function pushValue($symID, $game, $version, $platform, $value, $user) {
     }
 
     //register the ownership
-    sqlQuery("INSERT IGNORE INTO ${sqltp}user_values (`User`,`Value`) VALUES ($user, $valID);");
+    sqlQuery("INSERT IGNORE INTO {$sqltp}user_values (`User`,`Value`) VALUES ($user, $valID);");
     //if the insert worked we have a trigger that counts up the duplicates in the values table
 
     return $valID; //give back the value ID

@@ -50,5 +50,5 @@ else
 
     }
     
-    header("Location: /${webroot}");
+    header("Location: /{$webroot}");
 }
